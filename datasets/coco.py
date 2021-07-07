@@ -87,7 +87,7 @@ class CocoCaption(Dataset):
         image = nested_tensor_from_tensor_list(image.unsqueeze(0))
 
         caption_encoded = self.tokenizer.encode_plus(
-            caption, max_length=self.max_length, pad_to_max_length=True, return_attention_mask=True, return_token_type_ids=False, truncation=True)
+            caption, max_length=self.max_length, padding="max_length", return_attention_mask=True, return_token_type_ids=False, truncation=True)
 
         caption = np.array(caption_encoded['input_ids'])
         cap_mask = (
