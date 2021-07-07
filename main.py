@@ -10,6 +10,15 @@ from models import utils, caption
 from datasets import coco
 from configuration import Config
 from engine import train_one_epoch, evaluate
+import torch
+from torch import nn, optim
+from torchvision import transforms, datasets
+from torch.optim import Adam
+import torch.nn.functional as F
+
+import torch_xla
+import torch_xla.core.xla_model as xm
+import torch_xla.distributed.xla_multiprocessing as xmp
 
 
 def main(config):
@@ -84,7 +93,12 @@ def main(config):
 
         print()
 
+def _mp_fn(rank, flags):
+    torch.set_default_tensor_type('torch.FloatTensor')
+    config = Config()
+    a = main(config)
+
 
 if __name__ == "__main__":
-    config = Config()
-    main(config)
+    FLAGS={}
+    xmp.spawn(_mp_fn, args=(FLAGS,), nprocs=8, start_method='fork')

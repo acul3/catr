@@ -1,3 +1,4 @@
+import torch_xla.core.xla_model as xm
 class Config(object):
     def __init__(self):
 
@@ -17,7 +18,7 @@ class Config(object):
         self.dilation = True
         
         # Basic
-        self.device = 'cuda'
+        self.device = xm.xla_device()
         self.seed = 42
         self.batch_size = 32
         self.num_workers = 8
@@ -39,5 +40,5 @@ class Config(object):
         self.pre_norm = True
 
         # Dataset
-        self.dir = '../coco'
+        self.dir = 'coco'
         self.limit = -1

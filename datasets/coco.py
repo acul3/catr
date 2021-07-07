@@ -68,7 +68,7 @@ class CocoCaption(Dataset):
             self.annot = self.annot[: limit]
 
         self.tokenizer = BertTokenizer.from_pretrained(
-            'bert-base-uncased', do_lower=True)
+            'indobenchmark/indobert-base-p1', do_lower=True)
         self.max_length = max_length + 1
 
     def _process(self, image_id):
