@@ -40,5 +40,5 @@ class Config(object):
         self.pre_norm = True
 
         # Dataset
-        self.dir = 'coco'
+        self.dir = 'coco_dataset'
         self.limit = -1
